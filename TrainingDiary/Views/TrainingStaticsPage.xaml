@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TrainingDiary"
+             x:Class="TrainingDiary.Views.TrainingStaticsPage"
+             Loaded="OnPageLoaded"
+             Title="Training Statistics">
+    <VerticalStackLayout Padding="24" Spacing="14">
+        <Label Text="Training Statistics"
+               FontAttributes="Bold"
+               FontSize="24"
+               HorizontalOptions="Center"/>
+        <BoxView Color="LightSkyBlue" HeightRequest="3" WidthRequest="200" HorizontalOptions="Center"/>
+        <Label Text="{Binding TotalDuration, StringFormat='Total Training Time: {0}'}" FontSize="Medium"/>
+        <Label Text="{Binding MostFrequentType, StringFormat='Most Frequent Type: {0}'}" FontSize="Medium"/>
+        <Label Text="{Binding MostFrequentIntensity, StringFormat='Most Frequent Intensity: {0}'}" FontSize="Medium"/>
+        <Label Text="{Binding MostTrainedRegion, StringFormat='Top Region: {0}'}" FontSize="Medium"/>
+        <Label Text="{Binding AvgDuration, StringFormat='Average Duration: {0}'}" FontSize="Medium"/>
+    </VerticalStackLayout>
+</ContentPage>

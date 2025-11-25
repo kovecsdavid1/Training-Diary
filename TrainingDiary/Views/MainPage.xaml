@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TrainingDiary.Views.MainPage"
+             Title="MainPage">
+    <VerticalStackLayout>
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TrainingDiary"
+             x:DataType="local:MainPageViewModel"
+             x:Class="TrainingDiary.MainPage"
+             Loaded="MainPage_OnLoaded">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:DurationCalculator x:Key="DurationCalculator"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto, Auto, *"
+          WidthRequest="500"
+          RowSpacing="10"
+          Padding="0,10">
+
+        <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+            <Button Text="New" Command="{Binding NewTrainingCommand}" BackgroundColor="CadetBlue"/>
+            <Button Text="Edit" Command="{Binding EditTrainingCommand}" BackgroundColor="CadetBlue"/>
+            <Button Text="Delete" Command="{Binding DeleteTrainingCommand}" BackgroundColor="CadetBlue"/>
+            <Button Text="Statics" Command="{Binding ShowTrainingStaticsCommand}" BackgroundColor="CadetBlue"/>
+            <Button Text="Share" Command="{Binding ShowTrainingStatisticsCommand}" BackgroundColor="CadetBlue"/>
+
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="10" Grid.Row="1">
+            <Label Text="Detailed View" VerticalOptions="Center" />
+            <Switch IsToggled="{Binding IsFullViewEnabled}" OnColor="CadetBlue" ThumbColor="#FFFFFF"/>
+        </HorizontalStackLayout>
+
+        <Border StrokeThickness="5"
+                Stroke="LightBlue"
+                StrokeShape="RoundRectangle 10"
+                Grid.Row="2">
+
+            <CollectionView ItemsSource="{Binding Trainings}"
+                            SelectedItem="{Binding SelectedTraining}"
+                            SelectionMode="Single"
+                            BackgroundColor="LightCyan">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="local:Training">
+                        <Border Margin="5"
+                                Padding="5"
+                                Stroke="Blue"
+                                StrokeThickness="2"
+                                StrokeShape="RoundRectangle 10">
+                            <VerticalStackLayout>
+                                <Label FontSize="Medium" FontAttributes="Bold" Text="{Binding Name}"/>
+                                <Label FontSize="Small" Text="{Binding TrainedRegion}"
+                                       IsVisible="{Binding BindingContext.IsFullViewEnabled, Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
+                                <Label FontSize="Small" Text="{Binding Type}"
+                                       IsVisible="{Binding BindingContext.IsFullViewEnabled, Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
+                                <Label FontSize="Small" Text="{Binding Intensivity}"
+                                       IsVisible="{Binding BindingContext.IsFullViewEnabled, Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
+                                <Label FontSize="Small" Text="{Binding ., Converter={StaticResource DurationCalculator}}"
+                                       IsVisible="{Binding BindingContext.IsFullViewEnabled, Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
+    </Grid>
+</ContentPage>
