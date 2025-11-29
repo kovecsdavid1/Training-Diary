@@ -1,28 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TrainingDiary.Views.MainPage"
-             Title="MainPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
-</ContentPage>
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:TrainingDiary"
-             x:DataType="local:MainPageViewModel"
-             x:Class="TrainingDiary.MainPage"
-             Loaded="MainPage_OnLoaded">
+             x:Class="TrainingDiary.Views.HomePage"
+             x:DataType="viewmodels:HomePageViewModel"
+             xmlns:viewmodels="clr-namespace:TrainingDiary.ViewModels"
+             xmlns:local="clr-namespace:TrainingDiary.Models"
+             xmlns:services="clr-namespace:TrainingDiary.Services">
+    <!--Title="HomePage"
+             Loaded="HomePage_OnLoaded">-->
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <local:DurationCalculator x:Key="DurationCalculator"/>
+            <services:DurationCalculator x:Key="DurationCalculator" />
         </ResourceDictionary>
     </ContentPage.Resources>
+
 
     <Grid RowDefinitions="Auto, Auto, *"
           WidthRequest="500"
@@ -34,7 +26,7 @@
             <Button Text="Edit" Command="{Binding EditTrainingCommand}" BackgroundColor="CadetBlue"/>
             <Button Text="Delete" Command="{Binding DeleteTrainingCommand}" BackgroundColor="CadetBlue"/>
             <Button Text="Statics" Command="{Binding ShowTrainingStaticsCommand}" BackgroundColor="CadetBlue"/>
-            <Button Text="Share" Command="{Binding ShowTrainingStatisticsCommand}" BackgroundColor="CadetBlue"/>
+            <!--<Button Text="Share" Command="{Binding ShowTrainingStaticsCommand}" BackgroundColor="CadetBlue"/>-->
 
         </HorizontalStackLayout>
 

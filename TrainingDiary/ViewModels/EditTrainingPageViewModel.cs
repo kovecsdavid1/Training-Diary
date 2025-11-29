@@ -14,20 +14,20 @@ namespace TrainingDiary.ViewModels
         [ObservableProperty]
         private Training draft;
 
-        public ObservableCollection<string> TrainedRegions { get; } = new ObservableCollection<string>
-    {
-        "Chest", "Back", "Legs", "Arms", "Shoulders", "Core"
-    };
+        public ObservableCollection<string> TrainedRegions { get; } = new()
+        {
+            "Chest", "Back", "Legs", "Arms", "Shoulders", "Core"
+        };
 
-        public ObservableCollection<string> TrainingTypes { get; } = new ObservableCollection<string>
-    {
-        "Strength", "Cardio", "Flexibility", "Balance"
-    };
+        public ObservableCollection<string> TrainingTypes { get; } = new()
+        {
+            "Strength", "Cardio", "Flexibility", "Balance"
+        };
 
-        public ObservableCollection<string> Intensivities { get; } = new ObservableCollection<string>
-    {
-        "easy", "medium", "hard", "progressive"
-    };
+        public ObservableCollection<string> Intensivities { get; } = new()
+        {
+            "easy", "medium", "hard", "progressive"
+        };
 
         [ObservableProperty]
         private DateTime startDate;
@@ -54,17 +54,21 @@ namespace TrainingDiary.ViewModels
             }
             else
             {
-                Draft = new Training();
-                StartDate = DateTime.Today;
-                StartTime = TimeSpan.Zero;
-                EndDate = DateTime.Today;
-                EndTime = TimeSpan.Zero;
+                Draft = new Training
+                {
+                    StartTime = DateTime.Now,
+                    EndTime = DateTime.Now.AddHours(1)
+                };
+
+                StartDate = Draft.StartTime.Date;
+                StartTime = Draft.StartTime.TimeOfDay;
+                EndDate = Draft.EndTime.Date;
+                EndTime = Draft.EndTime.TimeOfDay;
             }
         }
 
         partial void OnDraftChanged(Training value)
         {
-            // Frissítsd a dátum/időmezőket amikor változik a Draft
             if (value != null)
             {
                 StartDate = value.StartTime.Date;
@@ -77,14 +81,15 @@ namespace TrainingDiary.ViewModels
         [RelayCommand]
         public async Task SaveTraining()
         {
-            // Draft StartTime és EndTime szinkronizálása a dátum és idő mezőkkel
+            // dátum + idő visszaírása Draftba
             Draft.StartTime = StartDate.Date + StartTime;
             Draft.EndTime = EndDate.Date + EndTime;
 
             var param = new ShellNavigationQueryParameters
-        {
-            { "EditedTraining", Draft }
-        };
+            {
+                { "EditedTraining", Draft }
+            };
+
             await Shell.Current.GoToAsync("..", param);
         }
 

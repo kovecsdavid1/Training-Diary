@@ -7,20 +7,23 @@ namespace TrainingDiary.ViewModels;
 
 public partial class TrainingStaticsViewModel : ObservableObject
 {
-    private ITrainingDatabase database;
+    private readonly TrainingDatabase _database;
 
-    public ObservableCollection<Training> Trainings { get; set; } = new();
+    public ObservableCollection<Training> Trainings { get; } = new();
 
-    public TrainingStaticsViewModel(ITrainingDatabase database)
+    public TrainingStaticsViewModel(TrainingDatabase database)
     {
-        this.database = database;
+        _database = database;
     }
 
     public async Task InitializeAsync()
     {
-        var trainingsFromDb = await database.GetTrainingsAsync();
+        var trainingsFromDb = await _database.GetTrainingsAsync();
+
         Trainings.Clear();
-        trainingsFromDb.ForEach(t => Trainings.Add(t));
+        foreach (var t in trainingsFromDb)
+            Trainings.Add(t);
+
         OnPropertyChanged(nameof(TotalDuration));
         OnPropertyChanged(nameof(MostFrequentType));
         OnPropertyChanged(nameof(MostFrequentIntensity));

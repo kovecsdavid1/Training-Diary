@@ -3,15 +3,20 @@
     x:Class="TrainingDiary.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:TrainingDiary"
-    Title="TrainingDiary">
+    xmlns:views="clr-namespace:TrainingDiary.Views">
+    <!--Title="TrainingDiary">-->
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        ContentTemplate="{DataTemplate views:HomePage}"
+        Route="home" />
+
+    <ShellContent
+        Route="edittraining"
+        ContentTemplate="{DataTemplate views:EditTrainingPage}" />
+    
     <ShellContent 
         Route="trainingstatics"
         Title="Statics"
-        ContentTemplate="{DataTemplate local:TrainingStaticsPage}" />
+        ContentTemplate="{DataTemplate views:TrainingStaticsPage}" />
 </Shell>

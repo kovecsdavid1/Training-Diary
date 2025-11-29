@@ -1,15 +1,31 @@
-﻿namespace TrainingDiary
-{
-    public partial class App : Application
-    {
-        public App()
-        {
-            InitializeComponent();
-        }
+﻿//using System;
+//using System.Threading.Tasks;
+//using Microsoft.Maui.Controls;
 
-        protected override Window CreateWindow(IActivationState? activationState)
+//namespace TrainingDiary
+//{
+//    public partial class App : Application
+//    {
+//        public App()
+//        {
+//            InitializeComponent();
+//        }
+
+//        protected override Window CreateWindow(IActivationState? activationState)
+//            => new Window(new AppShell());
+//    }
+//}
+
+namespace TrainingDiary;
+
+public partial class App : Application
+{
+    public App()
+    {
+        InitializeComponent();
+        MainPage = new ContentPage
         {
-            return new Window(new AppShell());
-        }
+            Content = new Label { Text = "Test page" }
+        };
     }
 }

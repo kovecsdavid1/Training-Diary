@@ -10,7 +10,7 @@ public partial class TrainingStaticsPage : ContentPage
     public TrainingStaticsPage(TrainingStaticsViewModel viewModel)
     {
         InitializeComponent();
-        ViewModel = new TrainingStaticsViewModel(App.Database);
+        //ViewModel = new TrainingStaticsViewModel(App.Database);
         BindingContext = ViewModel;
     }
 

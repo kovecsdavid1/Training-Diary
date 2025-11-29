@@ -6,19 +6,18 @@ namespace TrainingDiary.Views;
 
 public partial class EditTrainingPage : ContentPage
 {
-    private EditTrainingPageViewModel VM;
-    public EditTrainingPage(EditTrainingPageViewModel VM)
+    private readonly EditTrainingPageViewModel _vm;
+
+    public EditTrainingPage(EditTrainingPageViewModel vm)
     {
         InitializeComponent();
-        this.VM = VM;
-        BindingContext = VM;
+        _vm = vm;
+        BindingContext = _vm;
     }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         base.OnNavigatedTo(args);
-        VM.InitDraft();
+        _vm.InitDraft();
     }
-
-
 }
