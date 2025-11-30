@@ -12,78 +12,47 @@
         <converters:DurationCalculator x:Key="DurationConverter" />
     </ContentPage.Resources>
     <Grid RowDefinitions="Auto, *" RowSpacing="10" Padding="10">
-
-        <!-- Gombok Grid-ben 2x3 elrendezésben -->
-        <Grid Grid.Row="0"
-              Padding="0"
-              RowDefinitions="Auto,Auto"
-              ColumnDefinitions="*,*,*"
-              ColumnSpacing="10"
-              RowSpacing="10"
-              HorizontalOptions="FillAndExpand">
-
-            <!-- 1. sor -->
-            <Button Text="New"
-                    Grid.Row="0" Grid.Column="0"
-                    Command="{Binding NewTrainingCommand}"
-                    Style="{StaticResource ActionButtonStyle}" />
-
-            <Button Text="Edit"
-                    Grid.Row="0" Grid.Column="1"
-                    Command="{Binding EditTrainingCommand}"
-                    Style="{StaticResource ActionButtonStyle}" />
-
-            <Button Text="Delete"
-                    Grid.Row="0" Grid.Column="2"
-                    Command="{Binding DeleteTrainingCommand}"
-                    Style="{StaticResource ActionButtonStyle}" />
-
-            <!-- 2. sor -->
-            <Button Text="Details"
-                    Grid.Row="1" Grid.Column="0"
-                    Command="{Binding ShowDetailsCommand}"
-                    Style="{StaticResource ActionButtonStyle}" />
-
-            <Button Text="Share"
-                    Grid.Row="1" Grid.Column="1"
-                    Command="{Binding ShareTrainingCommand}"
-                    Style="{StaticResource ActionButtonStyle}" />
-
-            <Button Text="Statistics"
-                    Grid.Row="1" Grid.Column="2"
-                    Command="{Binding ShowStatisticsCommand}"
-                    Style="{StaticResource ActionButtonStyle}" />
-
-        </Grid>
+        <VerticalStackLayout Spacing="10" Grid.Row="0" HorizontalOptions="FillAndExpand">
+            <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Button Text="New" Command="{Binding NewTrainingCommand}" Style="{StaticResource ActionButtonStyle}"/>
+                <Button Text="Edit" Command="{Binding EditTrainingCommand}" Style="{StaticResource ActionButtonStyle}"/>
+                <Button Text="Delete" Command="{Binding DeleteTrainingCommand}" Style="{StaticResource ActionButtonStyle}"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Button Text="Details" Command="{Binding ShowDetailsCommand}" Style="{StaticResource ActionButtonStyle}"/>
+                <Button Text="Share" Command="{Binding ShareTrainingCommand}" Style="{StaticResource ActionButtonStyle}"/>
+                <Button Text="Statistics" Command="{Binding ShowStatisticsCommand}" Style="{StaticResource ActionButtonStyle}"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
 
         <CollectionView ItemsSource="{Binding Trainings}"
                        SelectedItem="{Binding SelectedTraining}"
                        SelectionMode="Single"
                        Grid.Row="1">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Training">
-                    <Frame Margin="5,10" Style="{StaticResource CardView}" BackgroundColor="{StaticResource Secondary}">
+            <DataTemplate x:DataType="model:Training">
+                <Frame Margin="5,10" Style="{StaticResource CardView}" BackgroundColor="{StaticResource Secondary}">
 
-                        <Grid ColumnDefinitions="Auto, *">
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomePageViewModel}}, Path=SelectTrainingCommand}"
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomePageViewModel}}, Path=SelectTrainingCommand}"
                                                   CommandParameter="{Binding .}" />
-                            </Grid.GestureRecognizers>
-                            <Image Source="{Binding ImagePath}"
+                        </Grid.GestureRecognizers>
+                        <Image Source="{Binding ImagePath}"
                                HeightRequest="100"
                                WidthRequest="100"
                                Aspect="AspectFill"
                                Margin="5"/>
-                            <VerticalStackLayout Grid.Column="1" Spacing="5" VerticalOptions="Center">
-                                <Label Text="{Binding Name}" Style="{StaticResource CardTitle}" HorizontalTextAlignment="Start" />
-                                <Label Text="{Binding TrainedRegion}" Style="{StaticResource CardBody}"/>
-                                <Label Text="{Binding Type}" Style="{StaticResource CardBody}"/>
-                                <Label Text="{Binding Date, StringFormat='{0:yyyy. MM. dd.}'}" Style="{StaticResource CardBody}"/>
-                                <Label Text="{Binding Duration, Converter={StaticResource DurationConverter}}" Style="{StaticResource CardBody}"/>
-                            </VerticalStackLayout>
-                        </Grid>
-                    </Frame>
-                </DataTemplate>
+                        <VerticalStackLayout Grid.Column="1" Spacing="5" VerticalOptions="Center">
+                            <Label Text="{Binding Name}" Style="{StaticResource CardTitle}" HorizontalTextAlignment="Start" />
+                            <Label Text="{Binding TrainedRegion}" Style="{StaticResource CardBody}"/>
+                            <Label Text="{Binding Type}" Style="{StaticResource CardBody}"/>
+                            <Label Text="{Binding Date, StringFormat='{0:yyyy. MM. dd.}'}" Style="{StaticResource CardBody}"/>
+                            <Label Text="{Binding Duration, Converter={StaticResource DurationConverter}}" Style="{StaticResource CardBody}"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Frame>
+            </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
     </Grid>
