@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TrainingDiary2.Views.EditTrainingPage"
+             xmlns:viewmodel="clr-namespace:TrainingDiary2.ViewModels"
+             x:DataType="viewmodel:EditTrainingPageViewModel">
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
+    </ContentPage.Resources>
+    <ScrollView>
+        <VerticalStackLayout Spacing="10" Padding="10">
+            <Label Text="Name"/>
+            <Entry Text="{Binding Draft.Name}"/>
+            <Label Text="Trained Region"/>
+            <Picker ItemsSource="{Binding TrainedRegions}" SelectedItem="{Binding Draft.TrainedRegion}"/>
+            <Label Text="Type"/>
+            <Picker ItemsSource="{Binding TrainingTypes}" SelectedItem="{Binding Draft.Type}"/>
+            <Label Text="Intensivity"/>
+            <Picker ItemsSource="{Binding Intensivities}" SelectedItem="{Binding Draft.Intensivity}"/>
+            <Label Text="Date"/>
+            <DatePicker Date="{Binding Draft.Date}"/>
+            <Label Text="Start Time"/>
+            <TimePicker Time="{Binding Draft.StartTime}"/>
+            <Label Text="End Time"/>
+            <TimePicker Time="{Binding Draft.EndTime}"/>
+            <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Button Text="Save" Command="{Binding SaveTrainingCommand}"/>
+                <Button Text="Cancel" Command="{Binding CancelEditCommand}"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

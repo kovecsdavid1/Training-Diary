@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
-using TrainingDiary.Converters;
-using TrainingDiary.Services;
-using TrainingDiary.ViewModels;
-using TrainingDiary.Views;
+using Microsoft.Extensions.Logging;
+using TrainingDiary2.Converters;
+using TrainingDiary2.Services;
+using TrainingDiary2.ViewModels;
+using TrainingDiary2.Views;
 
-namespace TrainingDiary;
+namespace TrainingDiary2;
 
 public static class MauiProgram
 {
@@ -22,6 +22,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<HomePage>();
         builder.Services.AddTransient<EditTrainingPageViewModel>();
         builder.Services.AddTransient<EditTrainingPage>();
+        builder.Services.AddTransient<StatisticsPageViewModel>();
+        builder.Services.AddTransient<StatisticsPage>();
         builder.Services.AddSingleton<ITrainingDatabase, SQLiteTrainingDatabase>();
         builder.Services.AddTransient<DurationCalculator>();
 

@@ -1,0 +1,49 @@
+using SQLite;
+using TrainingDiary2.Models;
+
+namespace TrainingDiary2.Services;
+
+public class SQLiteTrainingDatabase:ITrainingDatabase
+{
+    //Nuget: sqlite-net-pcl
+    SQLite.SQLiteOpenFlags Flags =
+        SQLite.SQLiteOpenFlags.ReadWrite |
+        SQLite.SQLiteOpenFlags.Create;
+
+    string databasePath =
+        Path.Combine(FileSystem.Current.AppDataDirectory, "trainings.db3");
+    
+    SQLiteAsyncConnection database;
+
+    public SQLiteTrainingDatabase()
+    {
+        database = new SQLiteAsyncConnection(databasePath, Flags);
+        database.CreateTableAsync<Training>().Wait();
+    }
+    
+    public async Task<List<Training>> GetTrainingsAsync()
+    {
+        return await database.Table<Training>().ToListAsync();
+    }
+
+    public async Task<Training> GetTrainingAsync(int id)
+    {
+        return await database.Table<Training>().Where(i => i.Id == id).FirstOrDefaultAsync();
+    }
+
+    public async Task CreateTrainingAsync(Training training)
+    {
+        await database.InsertAsync(training);
+    }
+
+    public async Task UpdateTrainingAsync(Training training)
+    {
+        await database.UpdateAsync(training);
+    }
+
+    public async Task DeleteTrainingAsync(Training training)
+    {
+        await database.DeleteAsync(training);
+
+    }
+}

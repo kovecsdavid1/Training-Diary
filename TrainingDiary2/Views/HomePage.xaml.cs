@@ -1,7 +1,7 @@
 using CommunityToolkit.Mvvm.Messaging;
-using TrainingDiary.ViewModels;
+using TrainingDiary2.ViewModels;
 
-namespace TrainingDiary.Views;
+namespace TrainingDiary2.Views;
 
 public partial class HomePage : ContentPage
 {
@@ -10,8 +10,8 @@ public partial class HomePage : ContentPage
     {
         InitializeComponent();
         this.viewModel = viewModel;
-        BindingContext = viewModel;
-        WeakReferenceMessenger.Default.Register<string>(this, async (r, m) =>
+        BindingContext=viewModel;
+        WeakReferenceMessenger.Default.Register<string>(this, async (r,m) =>
         {
             await DisplayAlert("Warning", m, "OK");
         });

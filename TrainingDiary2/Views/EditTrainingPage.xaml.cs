@@ -1,6 +1,6 @@
-using TrainingDiary.ViewModels;
+using TrainingDiary2.ViewModels;
 
-namespace TrainingDiary.Views;
+namespace TrainingDiary2.Views;
 
 
 public partial class EditTrainingPage : ContentPage
@@ -10,13 +10,13 @@ public partial class EditTrainingPage : ContentPage
     {
         InitializeComponent();
         this.VM = VM;
-        BindingContext = VM;
+        BindingContext=VM;
     }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
-    {
-        base.OnNavigatedTo(args);
-        VM.InitDraft();
+    { 
+       base.OnNavigatedTo(args);
+       VM.InitDraft();
     }
 
 

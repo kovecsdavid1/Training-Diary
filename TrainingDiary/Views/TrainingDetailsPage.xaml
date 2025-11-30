@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:TrainingDiary.Models"
+             xmlns:converters="clr-namespace:TrainingDiary.Converters"
+             x:Class="TrainingDiary.Views.TrainingDetailsPage"
+             x:DataType="model:Training">
+    <ContentPage.Resources>
+        <converters:DurationCalculator x:Key="DurationConverter" />
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="Medium"/>
+        </Style>
+    </ContentPage.Resources>
+    <VerticalStackLayout Padding="10" Spacing="10">
+        <Label Text="{Binding Name,StringFormat='Name: {0}'}" FontAttributes="Bold"/>
+        <Label Text="{Binding TrainedRegion,StringFormat='Trained Region: {0}'}"/>
+        <Label Text="{Binding Type,StringFormat='Type: {0}'}"/>
+        <Label Text="{Binding Intensivity,StringFormat='Intensivity: {0}'}"/>
+        <Label Text="{Binding Date,StringFormat='Date: {0:yyyy. MM. dd.}'}"/>
+        <Label Text="{Binding StartTime,StringFormat='Start Time: {0:hh:mm}'}"/>
+        <Label Text="{Binding EndTime, StringFormat='End Time: {0:hh:mm}'}" />
+        <Label Text="{Binding Duration, Converter={StaticResource DurationConverter}, StringFormat='Duration: {0}'}" />
+    </VerticalStackLayout>
+</ContentPage>

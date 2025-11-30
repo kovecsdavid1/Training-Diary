@@ -2,54 +2,33 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:TrainingDiary.ViewModels"
              x:Class="TrainingDiary.Views.EditTrainingPage"
-             x:DataType="viewmodels:EditTrainingPageViewModel">
-
-    <VerticalStackLayout Padding="20">
-        <Label Text="Edit training page" />
-    </VerticalStackLayout>
-</ContentPage>    
-    <!--<ContentPage.Resources>
+             xmlns:viewmodel="clr-namespace:TrainingDiary.ViewModels"
+             x:DataType="viewmodel:EditTrainingPageViewModel">
+    <ContentPage.Resources>
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="Medium"/>
             <Setter Property="FontAttributes" Value="Bold"/>
         </Style>
     </ContentPage.Resources>
-
     <VerticalStackLayout Spacing="10" Padding="10">
-
         <Label Text="Name"/>
         <Entry Text="{Binding Draft.Name}"/>
-
-        <Label Text="Region"/>
-        <Picker ItemsSource="{Binding TrainedRegions}" 
-                SelectedItem="{Binding Draft.TrainedRegion}"/>
-
+        <Label Text="Trained Region"/>
+        <Picker ItemsSource="{Binding TrainedRegions}" SelectedItem="{Binding Draft.TrainedRegion}"/>
         <Label Text="Type"/>
-        <Picker ItemsSource="{Binding TrainingTypes}" 
-                SelectedItem="{Binding Draft.Type}"/>
-
+        <Picker ItemsSource="{Binding TrainingTypes}" SelectedItem="{Binding Draft.Type}"/>
         <Label Text="Intensivity"/>
-        <Picker ItemsSource="{Binding Intensivities}" 
-                SelectedItem="{Binding Draft.Intensivity}"/>
-
-        <Label Text="Start Date and Time"/>
-        <HorizontalStackLayout Spacing="10">
-            <DatePicker Date="{Binding StartDate}"/>
-            <TimePicker Time="{Binding StartTime}"/>
-        </HorizontalStackLayout>
-
-        <Label Text="End Date and Time"/>
-        <HorizontalStackLayout Spacing="10">
-            <DatePicker Date="{Binding EndDate}"/>
-            <TimePicker Time="{Binding EndTime}"/>
-        </HorizontalStackLayout>
-
+        <Picker ItemsSource="{Binding Intensivities}" SelectedItem="{Binding Draft.Intensivity}"/>
+        <Label Text="Date"/>
+        <DatePicker Date="{Binding Draft.Date}"/>
+        <Label Text="Start Time"/>
+        <TimePicker Time="{Binding Draft.StartTime}"/>
+        <Label Text="End Time"/>
+        <TimePicker Time="{Binding Draft.EndTime}"/>
         <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
             <Button Text="Save" Command="{Binding SaveTrainingCommand}"/>
             <Button Text="Cancel" Command="{Binding CancelEditCommand}"/>
         </HorizontalStackLayout>
-
     </VerticalStackLayout>
-</ContentPage>-->
+</ContentPage>

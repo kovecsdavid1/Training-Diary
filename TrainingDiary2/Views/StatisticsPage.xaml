@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:TrainingDiary2.ViewModels"
+             x:Class="TrainingDiary2.Views.StatisticsPage"
+             x:DataType="viewmodel:StatisticsPageViewModel"
+             Title="Statistics">
+    <VerticalStackLayout Padding="10" Spacing="10">
+        <Label Text="{Binding AverageDuration, StringFormat='Average Training Duration: {0}'}" />
+        <Label Text="{Binding MostFrequentRegion, StringFormat='Most Frequent Trained Region: {0}'}" />
+        <Label Text="{Binding MostFrequentType, StringFormat='Most Frequent Training Type: {0}'}" />
+        <Label Text="{Binding MostFrequentIntensivity, StringFormat='Most Frequent Intensivity: {0}'}" />
+        <Label Text="{Binding LongestTraining.Date, StringFormat='Longest Training Date: {0:yyyy. MM. dd.}'}" />
+        <Label Text="{Binding LongestTraining.Duration, StringFormat='Longest Training Duration: {0:hh\:mm}'}" />
+    </VerticalStackLayout>
+</ContentPage>

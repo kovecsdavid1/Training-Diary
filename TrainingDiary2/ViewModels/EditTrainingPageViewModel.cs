@@ -1,12 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using TrainingDiary.Models;
+using TrainingDiary2.Models;
 
-namespace TrainingDiary.ViewModels;
+namespace TrainingDiary2.ViewModels;
 
 [QueryProperty(nameof(EditedTraining), "Training")]
-public partial class EditTrainingPageViewModel : ObservableObject
+public partial class EditTrainingPageViewModel:ObservableObject
 {
     [ObservableProperty]
     Training editedTraining;
@@ -33,7 +33,7 @@ public partial class EditTrainingPageViewModel : ObservableObject
     {
         Draft = EditedTraining.GetCopy();
     }
-
+    
     [RelayCommand]
     public async Task SaveTraining()
     {

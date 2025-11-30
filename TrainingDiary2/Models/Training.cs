@@ -1,9 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using SQLite;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace TrainingDiary.Models;
+namespace TrainingDiary2.Models;
 
 public partial class Training : ObservableObject
 {

@@ -1,15 +1,15 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using TrainingDiary.Models;
-using TrainingDiary.Services;
+using TrainingDiary2.Models;
+using TrainingDiary2.Services;
 
-namespace TrainingDiary.ViewModels;
+namespace TrainingDiary2.ViewModels;
 
 [QueryProperty(nameof(EditedTraining), "EditedTraining")]
-public partial class HomePageViewModel : ObservableObject
+public partial class HomePageViewModel:ObservableObject
 {
     private ITrainingDatabase database;
     public ObservableCollection<Training> Trainings { get; set; }
@@ -19,7 +19,7 @@ public partial class HomePageViewModel : ObservableObject
 
     [ObservableProperty]
     private Training editedTraining;
-
+  
     //azért kell ez, mert async nem hívható setterből
     //az [ObservableProperty] generálja az alapját, amúgy ilyen metódus nem lenne
     async partial void OnEditedTrainingChanged(Training value)
@@ -51,22 +51,27 @@ public partial class HomePageViewModel : ObservableObject
         }
 
     }
-
-    public HomePageViewModel(ITrainingDatabase database)
-    {
+    
+    public HomePageViewModel(ITrainingDatabase database) { 
         this.database = database;
-        Trainings = new ObservableCollection<Training>();
+        Trainings= new ObservableCollection<Training>();
     }
 
     public async Task InitializeAsync()
     {
         var trainingList = await database.GetTrainingsAsync();
         Trainings.Clear();
-        trainingList.ForEach(p => Trainings.Add(p));
+        trainingList.ForEach(p=>Trainings.Add(p));
+    }
+    
+    [RelayCommand]
+    public async Task ShowStatistics()
+    {
+        await Shell.Current.GoToAsync("statistics");
     }
 
     [RelayCommand]
-    public async Task ShowTrainingDetailsAsync()
+    public async Task ShowTrainingDetails()
     {
         if (SelectedTraining != null)
         {
@@ -74,7 +79,7 @@ public partial class HomePageViewModel : ObservableObject
             {
                 { "Training", SelectedTraining }
             };
-            await Shell.Current.GoToAsync("trainingdetails", param);
+            await Shell.Current.GoToAsync("trainingdetails",param);
         }
     }
 
@@ -88,7 +93,7 @@ public partial class HomePageViewModel : ObservableObject
         };
         await Shell.Current.GoToAsync("edittraining", param);
     }
-
+    
     [RelayCommand]
     public async Task EditTrainingAsync()
     {
@@ -105,7 +110,7 @@ public partial class HomePageViewModel : ObservableObject
             WeakReferenceMessenger.Default.Send("Select a training to edit.");
         }
     }
-
+    
     [RelayCommand]
     public void DeleteTraining()
     {
@@ -119,6 +124,6 @@ public partial class HomePageViewModel : ObservableObject
         {
             WeakReferenceMessenger.Default.Send("Select a training to delete.");
         }
-
+        
     }
 }
