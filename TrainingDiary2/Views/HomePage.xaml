@@ -11,48 +11,48 @@
     <ContentPage.Resources>
         <converters:DurationCalculator x:Key="DurationConverter" />
     </ContentPage.Resources>
-   <Grid RowDefinitions="Auto, Auto, *"  WidthRequest="300" RowSpacing="10" Padding="0,10">
-            <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
-                <Button Text="New" Command="{Binding NewTrainingCommand}"/>
-                <Button Text="Edit" Command="{Binding EditTrainingCommand}"/>
-                <Button Text="Delete" Command="{Binding DeleteTrainingCommand}"/>
-                <Button Text="Statistics" Command="{Binding ShowStatisticsCommand}"/>
-            </HorizontalStackLayout>
-            <HorizontalStackLayout Spacing="10" Grid.Row="1">
-                <Label Text="Detailed View" VerticalOptions="Center"/>
-                <Switch IsToggled="{Binding IsFullViewEnabled}"/>
-            </HorizontalStackLayout>
-            <Border StrokeThickness="5" Stroke="Orange" StrokeShape="RoundRectangle 10"
-                    Grid.Row="2">
-            <CollectionView ItemsSource="{Binding Trainings}" 
-                            SelectedItem="{Binding SelectedTraining}"
-                            SelectionMode="Single"
-                            SelectionChangedCommand="{Binding ShowTrainingDetailsCommand}"
-                            BackgroundColor="LightYellow" 
-                            >
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Training">
-                        <Border Margin="5" Padding="5"
-                                Stroke="Brown" StrokeThickness="2" StrokeShape="RoundRectangle 10">
-                            <VerticalStackLayout>
-                                <Label FontSize="Medium" FontAttributes="Bold" Text="{Binding Name}"/>
-                                <Label FontSize="Small" Text="{Binding TrainedRegion}" 
-                                       IsVisible="{Binding BindingContext.IsFullViewEnabled,Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
-                                <Label FontSize="Small" 
-                                       Text="{Binding Type}" 
-                                       IsVisible="{Binding BindingContext.IsFullViewEnabled,Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
-                                <Label FontSize="Small" 
-                                       Text="{Binding Date, StringFormat='{0:yyyy. MM. dd.}'}"
-                                       IsVisible="{Binding BindingContext.IsFullViewEnabled,Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
-                                <Label FontSize="Small"
-                                       Text="{Binding Duration, Converter={StaticResource DurationConverter}}"
-                                       IsVisible="{Binding BindingContext.IsFullViewEnabled,Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
-                            </VerticalStackLayout>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            </Border>
-            
-        </Grid>
-</ContentPage>
+   <Grid RowDefinitions="Auto, *" RowSpacing="10" Padding="10">
+       <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+           <Button Text="New" Command="{Binding NewTrainingCommand}"/>
+           <Button Text="Edit" Command="{Binding EditTrainingCommand}"/>
+           <Button Text="Delete" Command="{Binding DeleteTrainingCommand}"/>
+           <Button Text="Details" Command="{Binding ShowDetailsCommand}" />
+           <Button Text="Share" Command="{Binding ShareTrainingCommand}" />
+           <Button Text="Statistics" Command="{Binding ShowStatisticsCommand}"/>
+       </HorizontalStackLayout>
+   
+       <CollectionView ItemsSource="{Binding Trainings}"
+                       SelectedItem="{Binding SelectedTraining}"
+                       SelectionMode="Single"
+                       Grid.Row="1">
+           <CollectionView.ItemTemplate>
+                           <DataTemplate x:DataType="model:Training">
+                               <Frame Margin="5,10" Style="{StaticResource CardView}">
+                                   <VisualStateManager.VisualStateGroups>
+                                       <VisualStateGroup x:Name="CommonStates">
+                                           <VisualState x:Name="Normal" />
+                                           <VisualState x:Name="Selected">
+                                               <VisualState.Setters>
+                                                   <Setter Property="BackgroundColor" Value="{StaticResource PrimaryDark}" />
+                                               </VisualState.Setters>
+                                           </VisualState>
+                                       </VisualStateGroup>
+                                   </VisualStateManager.VisualStateGroups>
+                                   <Grid ColumnDefinitions="Auto, *">
+                                       <Image Source="{Binding ImagePath}"
+                                              HeightRequest="100"
+                                              WidthRequest="100"
+                                              Aspect="AspectFill"
+                                              Margin="5"/>
+                                       <VerticalStackLayout Grid.Column="1" Spacing="5" VerticalOptions="Center">
+                                           <Label Text="{Binding Name}" Style="{StaticResource CardTitle}" HorizontalTextAlignment="Start" />
+                                           <Label Text="{Binding TrainedRegion}" Style="{StaticResource CardBody}"/>
+                                           <Label Text="{Binding Type}" Style="{StaticResource CardBody}"/>
+                                           <Label Text="{Binding Date, StringFormat='{0:yyyy. MM. dd.}'}" Style="{StaticResource CardBody}"/>
+                                           <Label Text="{Binding Duration, Converter={StaticResource DurationConverter}}" Style="{StaticResource CardBody}"/>
+                                       </VerticalStackLayout>
+                                   </Grid>
+                               </Frame>
+                           </DataTemplate>           </CollectionView.ItemTemplate>
+       </CollectionView>
+   </Grid></ContentPage>

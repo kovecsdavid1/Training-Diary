@@ -38,19 +38,6 @@ public partial class HomePageViewModel:ObservableObject
         }
     }
 
-    public bool IsFullViewEnabled
-    {
-        get
-        {
-            return Preferences.Default.Get("fullview", true);
-        }
-        set
-        {
-            Preferences.Default.Set("fullview", value);
-            OnPropertyChanged();
-        }
-
-    }
     
     public HomePageViewModel(ITrainingDatabase database) { 
         this.database = database;
@@ -71,7 +58,7 @@ public partial class HomePageViewModel:ObservableObject
     }
 
     [RelayCommand]
-    public async Task ShowTrainingDetails()
+    public async Task ShowDetails()
     {
         if (SelectedTraining != null)
         {
@@ -80,6 +67,10 @@ public partial class HomePageViewModel:ObservableObject
                 { "Training", SelectedTraining }
             };
             await Shell.Current.GoToAsync("trainingdetails",param);
+        }
+        else
+        {
+            WeakReferenceMessenger.Default.Send("Select a training to view details.");
         }
     }
 
@@ -125,5 +116,22 @@ public partial class HomePageViewModel:ObservableObject
             WeakReferenceMessenger.Default.Send("Select a training to delete.");
         }
         
+    }
+
+    [RelayCommand]
+    public async Task ShareTraining()
+    {
+        if (SelectedTraining != null)
+        {
+            await Share.Default.RequestAsync(new ShareTextRequest
+            {
+                Title = "Share Training",
+                Text = SelectedTraining.ToString()
+            });
+        }
+        else
+        {
+            WeakReferenceMessenger.Default.Send("Select a training to share.");
+        }
     }
 }

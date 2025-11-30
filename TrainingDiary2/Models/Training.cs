@@ -33,11 +33,19 @@ public partial class Training : ObservableObject
     [ObservableProperty]
     public TimeSpan endTime;
 
+    [ObservableProperty]
+    public string imagePath;
+
     [Ignore]
     public TimeSpan Duration => EndTime - StartTime;
 
     public Training GetCopy()
     {
         return (Training)this.MemberwiseClone();
+    }
+
+    public override string ToString()
+    {
+        return $"Check out my training: {Name} ({Type}) on {Date:yyyy.MM.dd}. Trained {TrainedRegion} for {Duration:hh\\:mm}. It was {Intensivity}!";
     }
 }

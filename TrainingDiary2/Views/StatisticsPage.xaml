@@ -5,12 +5,52 @@
              x:Class="TrainingDiary2.Views.StatisticsPage"
              x:DataType="viewmodel:StatisticsPageViewModel"
              Title="Statistics">
-    <VerticalStackLayout Padding="10" Spacing="10">
-        <Label Text="{Binding AverageDuration, StringFormat='Average Training Duration: {0}'}" />
-        <Label Text="{Binding MostFrequentRegion, StringFormat='Most Frequent Trained Region: {0}'}" />
-        <Label Text="{Binding MostFrequentType, StringFormat='Most Frequent Training Type: {0}'}" />
-        <Label Text="{Binding MostFrequentIntensivity, StringFormat='Most Frequent Intensivity: {0}'}" />
-        <Label Text="{Binding LongestTraining.Date, StringFormat='Longest Training Date: {0:yyyy. MM. dd.}'}" />
-        <Label Text="{Binding LongestTraining.Duration, StringFormat='Longest Training Duration: {0:hh\:mm}'}" />
-    </VerticalStackLayout>
+    <ScrollView>
+    <Grid Padding="10" RowSpacing="10" ColumnSpacing="10"
+          RowDefinitions="Auto,Auto,Auto"
+          ColumnDefinitions="*,*">
+
+        <!-- Card for Average Duration -->
+        <Frame Grid.Row="0" Grid.Column="0" Style="{StaticResource CardView}">
+            <VerticalStackLayout>
+                <Label Text="Average Duration" Style="{StaticResource CardTitle}" />
+                <Label Text="{Binding AverageDuration, StringFormat='{0}'}" Style="{StaticResource CardValue}" />
+            </VerticalStackLayout>
+        </Frame>
+
+        <!-- Card for Longest Training -->
+        <Frame Grid.Row="0" Grid.Column="1" Style="{StaticResource CardView}">
+            <VerticalStackLayout>
+                <Label Text="Longest Training" Style="{StaticResource CardTitle}" />
+                <Label Text="{Binding LongestTraining.Duration, StringFormat='{0:hh\\:mm}'}" Style="{StaticResource CardValue}" />
+                <Label Text="{Binding LongestTraining.Date, StringFormat='on {0:yyyy.MM.dd}'}" Style="{StaticResource CardSubtitle}" />
+            </VerticalStackLayout>
+        </Frame>
+
+        <!-- Card for Most Frequent Region -->
+        <Frame Grid.Row="1" Grid.Column="0" Style="{StaticResource CardView}">
+            <VerticalStackLayout>
+                <Label Text="Top Region" Style="{StaticResource CardTitle}" />
+                <Label Text="{Binding MostFrequentRegion}" Style="{StaticResource CardValue}" />
+            </VerticalStackLayout>
+        </Frame>
+
+        <!-- Card for Most Frequent Type -->
+        <Frame Grid.Row="1" Grid.Column="1" Style="{StaticResource CardView}">
+            <VerticalStackLayout>
+                <Label Text="Top Type" Style="{StaticResource CardTitle}" />
+                <Label Text="{Binding MostFrequentType}" Style="{StaticResource CardValue}" />
+            </VerticalStackLayout>
+        </Frame>
+
+        <!-- Card for Most Frequent Intensity -->
+        <Frame Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource CardView}">
+            <VerticalStackLayout>
+                <Label Text="Top Intensity" Style="{StaticResource CardTitle}" />
+                <Label Text="{Binding MostFrequentIntensivity}" Style="{StaticResource CardValue}" />
+            </VerticalStackLayout>
+        </Frame>
+        
+    </Grid>
+</ScrollView>
 </ContentPage>
