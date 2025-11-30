@@ -123,15 +123,32 @@ public partial class HomePageViewModel:ObservableObject
     {
         if (SelectedTraining != null)
         {
-            await Share.Default.RequestAsync(new ShareTextRequest
+            if (!string.IsNullOrWhiteSpace(SelectedTraining.ImagePath) && File.Exists(SelectedTraining.ImagePath))
             {
-                Title = "Share Training",
-                Text = SelectedTraining.ToString()
-            });
+                await Share.Default.RequestAsync(new ShareFileRequest
+                {
+                    Title = SelectedTraining.ToString(),
+                    File = new ShareFile(SelectedTraining.ImagePath)
+                });
+            }
+            else
+            {
+                await Share.Default.RequestAsync(new ShareTextRequest
+                {
+                    Title = "Share Training",
+                    Text = SelectedTraining.ToString()
+                });
+            }
         }
         else
         {
             WeakReferenceMessenger.Default.Send("Select a training to share.");
         }
+    }
+
+    [RelayCommand]
+    public void SelectTraining(Training training)
+    {
+        SelectedTraining = training;
     }
 }

@@ -8,23 +8,44 @@
              x:DataType="model:Training">
     <ContentPage.Resources>
         <converters:DurationCalculator x:Key="DurationConverter" />
-        <Style TargetType="Label">
-            <Setter Property="FontSize" Value="Medium"/>
-        </Style>
     </ContentPage.Resources>
-    <VerticalStackLayout Padding="10" Spacing="10">
-        <Image Source="{Binding ImagePath}"
-               HeightRequest="250"
-               Aspect="AspectFit"
-               BackgroundColor="{StaticResource Gray200}"
-               Margin="0,0,0,10"/>
-        <Label Text="{Binding Name,StringFormat='Name: {0}'}" FontAttributes="Bold"/>
-        <Label Text="{Binding TrainedRegion,StringFormat='Trained Region: {0}'}"/>
-        <Label Text="{Binding Type,StringFormat='Type: {0}'}"/>
-        <Label Text="{Binding Intensivity,StringFormat='Intensivity: {0}'}"/>
-        <Label Text="{Binding Date,StringFormat='Date: {0:yyyy. MM. dd.}'}"/>
-        <Label Text="{Binding StartTime,StringFormat='Start Time: {0:hh:mm}'}"/>
-        <Label Text="{Binding EndTime, StringFormat='End Time: {0:hh:mm}'}" />
-        <Label Text="{Binding Duration, Converter={StaticResource DurationConverter}, StringFormat='Duration: {0}'}" />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="10" Spacing="10">
+            <Image Source="{Binding ImagePath}"
+                   HeightRequest="250"
+                   Aspect="AspectFit"
+                   BackgroundColor="{StaticResource Gray200}"
+                   Margin="0,0,0,10"/>
+
+            <!-- Card for Name -->
+            <Frame Style="{StaticResource CardView}">
+                <VerticalStackLayout>
+                    <Label Text="Training Name" Style="{StaticResource CardTitle}" HorizontalTextAlignment="Start"/>
+                    <Label Text="{Binding Name}" Style="{StaticResource CardValue}" HorizontalTextAlignment="Start"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Card for Type and Intensity -->
+            <Frame Style="{StaticResource CardView}">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Category" Style="{StaticResource CardTitle}" HorizontalTextAlignment="Start"/>
+                    <Label Text="{Binding Type}" Style="{StaticResource CardBody}" HorizontalTextAlignment="Start"/>
+                    <Label Text="{Binding Intensivity}" Style="{StaticResource CardBody}" HorizontalTextAlignment="Start"/>
+                    <Label Text="{Binding TrainedRegion}" Style="{StaticResource CardBody}" HorizontalTextAlignment="Start"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Card for Date and Time -->
+            <Frame Style="{StaticResource CardView}">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Timing" Style="{StaticResource CardTitle}" HorizontalTextAlignment="Start"/>
+                    <Label Text="{Binding Date, StringFormat='Date: {0:yyyy. MM. dd.}'}" Style="{StaticResource CardBody}" HorizontalTextAlignment="Start"/>
+                    <Label Text="{Binding StartTime, StringFormat='Start: {0:hh:mm}'}" Style="{StaticResource CardBody}" HorizontalTextAlignment="Start"/>
+                    <Label Text="{Binding EndTime, StringFormat='End: {0:hh:mm}'}" Style="{StaticResource CardBody}" HorizontalTextAlignment="Start"/>
+                    <Label Text="{Binding Duration, Converter={StaticResource DurationConverter}, StringFormat='Duration: {0}'}" Style="{StaticResource CardBody}" HorizontalTextAlignment="Start"/>
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
