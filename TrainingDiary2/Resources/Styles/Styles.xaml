@@ -473,5 +473,11 @@
         <Setter Property="FontSize" Value="14" />
         <Setter Property="TextColor" Value="{StaticResource Gray600}" />
     </Style>
+
+    <Style x:Key="ActionButtonStyle" TargetType="Button">
+        <Setter Property="Padding" Value="10,6" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="MinimumHeightRequest" Value="36"/>
+    </Style>
 </ResourceDictionary>
  

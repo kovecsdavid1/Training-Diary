@@ -9,7 +9,7 @@ using TrainingDiary2.Services;
 namespace TrainingDiary2.ViewModels;
 
 [QueryProperty(nameof(EditedTraining), "EditedTraining")]
-public partial class HomePageViewModel:ObservableObject
+public partial class HomePageViewModel : ObservableObject
 {
     private ITrainingDatabase database;
     public ObservableCollection<Training> Trainings { get; set; }
@@ -19,9 +19,9 @@ public partial class HomePageViewModel:ObservableObject
 
     [ObservableProperty]
     private Training editedTraining;
-  
-    //azért kell ez, mert async nem hívható setterből
-    //az [ObservableProperty] generálja az alapját, amúgy ilyen metódus nem lenne
+
+    //az�rt kell ez, mert async nem h�vhat� setterb�l
+    //az [ObservableProperty] gener�lja az alapj�t, am�gy ilyen met�dus nem lenne
     async partial void OnEditedTrainingChanged(Training value)
     {
         if (value != null)
@@ -38,19 +38,20 @@ public partial class HomePageViewModel:ObservableObject
         }
     }
 
-    
-    public HomePageViewModel(ITrainingDatabase database) { 
+
+    public HomePageViewModel(ITrainingDatabase database)
+    {
         this.database = database;
-        Trainings= new ObservableCollection<Training>();
+        Trainings = new ObservableCollection<Training>();
     }
 
     public async Task InitializeAsync()
     {
         var trainingList = await database.GetTrainingsAsync();
         Trainings.Clear();
-        trainingList.ForEach(p=>Trainings.Add(p));
+        trainingList.ForEach(p => Trainings.Add(p));
     }
-    
+
     [RelayCommand]
     public async Task ShowStatistics()
     {
@@ -66,7 +67,7 @@ public partial class HomePageViewModel:ObservableObject
             {
                 { "Training", SelectedTraining }
             };
-            await Shell.Current.GoToAsync("trainingdetails",param);
+            await Shell.Current.GoToAsync("trainingdetails", param);
         }
         else
         {
@@ -84,7 +85,7 @@ public partial class HomePageViewModel:ObservableObject
         };
         await Shell.Current.GoToAsync("edittraining", param);
     }
-    
+
     [RelayCommand]
     public async Task EditTrainingAsync()
     {
@@ -101,7 +102,7 @@ public partial class HomePageViewModel:ObservableObject
             WeakReferenceMessenger.Default.Send("Select a training to edit.");
         }
     }
-    
+
     [RelayCommand]
     public void DeleteTraining()
     {
@@ -115,7 +116,7 @@ public partial class HomePageViewModel:ObservableObject
         {
             WeakReferenceMessenger.Default.Send("Select a training to delete.");
         }
-        
+
     }
 
     [RelayCommand]
@@ -127,7 +128,7 @@ public partial class HomePageViewModel:ObservableObject
             {
                 await Share.Default.RequestAsync(new ShareFileRequest
                 {
-                    Title = SelectedTraining.ToString(),
+                    Title = SelectedTraining.ToString(), // Text details in the title
                     File = new ShareFile(SelectedTraining.ImagePath)
                 });
             }
